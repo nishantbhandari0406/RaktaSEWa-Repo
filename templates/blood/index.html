@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nepal Blood Donation Network - Connecting donors with those in need across Nepal">
+    <title>रक्तदान - जीवनदान | Nepal Blood Donation</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
+    
+    <style>
+        .hero-section {
+            margin-bottom: 0px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "image/homepage.jpg" %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+        }
+        
+        .quote-card {
+            background-color: #fff3f3;
+            border-left: 5px solid #e74c3c;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .nepali-text {
+            font-family: 'Preeti', 'Mangal', sans-serif;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
+        
+        .stat-item {
+            text-align: center;
+            margin: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    
+    <!-- Include Nepali font if needed -->
+    <link href="https://fonts.googleapis.com/css2?family=Mangal&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  {% include "blood/navbar.html" %}
+  
+  <!-- Hero Section -->
+  <section class="hero-section">
+      <div class="hero-content">
+          <h1 class="display-3">रक्तदान जीवनदान</h1>
+          <p class="lead">Join Nepal's largest blood donation network and save lives across the Himalayas</p>
+          
+          <!-- Call to Action Buttons -->
+          <div class="mt-4">
+              <a href="/donor/signup" class="btn btn-danger btn-lg mr-3">Become a Donor</a>
+              <a href="/patient/request" class="btn btn-outline-light btn-lg">Request Blood</a>
+          </div>
+          
+          <!-- Nepali Saying -->
+          <div class="mt-5">
+              <p class="nepali-text">"एउटा रक्तदानले तीन जीवन बचाउन सक्छ"</p>
+          </div>
+      </div>
+  </section>
+
+  <!-- Impact Stats -->
+  <div class="stats-container">
+      <div class="stat-item">
+          <div class="stat-number">10,000+</div>
+          <div class="stat-label">Lives Saved</div>
+      </div>
+      <div class="stat-item">
+          <div class="stat-number">5,000+</div>
+          <div class="stat-label">Active Donors</div>
+      </div>
+      <div class="stat-item">
+          <div class="stat-number">75+</div>
+          <div class="stat-label">Cities Covered</div>
+      </div>
+  </div>
+
+  <!-- Quote Section -->
+  <div class="quote-card">
+      <blockquote class="blockquote text-center">
+          <p class="mb-0">"Every blood donor is a hero. In Nepal, where blood shortages are common in remote areas, your single donation can mean the difference between life and death for mothers in childbirth, accident victims, and patients battling illnesses."</p>
+          <footer class="blockquote-footer mt-2">Dr. Anjali Shrestha, <cite>Tribhuvan University Teaching Hospital</cite></footer>
+      </blockquote>
+      
+      <div class="text-center mt-3">
+          <img src="{% static 'image/nepal-flag.png' %}" alt="Nepal Flag" style="height: 40px; margin-right: 10px;">
+          <span class="nepali-text">नेपालमा हरेक वर्ष ३५०,००० युनिट रक्त आवश्यक पर्छ</span>
+      </div>
+  </div>
+
+  {% include "blood/footer.html" %}
+
+  <!-- Scripts -->
+  <script>
+      // Animation for stats counting
+      document.addEventListener('DOMContentLoaded', function() {
+          const statNumbers = document.querySelectorAll('.stat-number');
+          
+          statNumbers.forEach(number => {
+              const target = parseInt(number.textContent.replace(/[^0-9]/g, ''));
+              const increment = target / 100;
+              let current = 0;
+              
+              const timer = setInterval(() => {
+                  current += increment;
+                  if (current >= target) {
+                      clearInterval(timer);
+                      current = target;
+                  }
+                  number.textContent = Math.floor(current).toLocaleString() + (number.textContent.includes('+') ? '+' : '');
+              }, 10);
+          });
+      });
+  </script>
+</body>
+
+</html>
+<!--
+Developed with ❤️ by Kings Student for Nepal
+Contact: RaktaSewa@Kings.org
+-->
