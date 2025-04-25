@@ -11,71 +11,568 @@
     <!-- Favicon -->
     <link rel="icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
     
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
+        :root {
+            --blood-red: #e74c3c;
+            --nepal-red: #DC143C;
+            --nepal-blue: #003893;
+            --nepal-gold: #FFD700;
+            --light-bg: #fff9f9;
+            --text-dark: #333;
+            --text-light: #666;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            color: var(--text-dark);
+        }
+        
+        /* Hero Section */
         .hero-section {
-            margin-bottom: 0px;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "image/homepage.jpg" %}');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% static "image/homepage.jpg" %}');
             background-size: cover;
-            background-repeat: no-repeat;
             background-position: center;
             min-height: 100vh;
             color: white;
+            display: flex;
+            align-items: center;
             position: relative;
         }
         
-        .hero-content {
+        .hero-section::after {
+            content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent 0%, var(--light-bg) 100%);
+        }
+        
+        .hero-content {
             text-align: center;
-            width: 80%;
+            padding: 0 20px;
         }
         
-        .quote-card {
-            background-color: #fff3f3;
-            border-left: 5px solid #e74c3c;
-            padding: 2rem;
-            margin: 2rem auto;
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
             max-width: 800px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 0 8px 8px 0;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 1.5s ease;
         }
         
-        .nepali-text {
-            font-family: 'Preeti', 'Mangal', sans-serif;
+        .btn-donor {
+            background-color: var(--blood-red);
+            border: none;
+            padding: 12px 30px;
             font-size: 1.2rem;
-            color: #333;
+            margin: 0 15px 15px 0;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease;
         }
         
-        .stats-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            padding: 2rem;
+        .btn-donor:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-request {
+            border: 2px solid white;
+            padding: 10px 28px;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            animation: fadeInUp 1.2s ease;
+        }
+        
+        .btn-request:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .nepali-saying {
+            font-family: 'Mangal', 'Preeti', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeIn 2s ease;
+        }
+        
+        /* Stats Section */
+        .stats-section {
             background-color: #f8f9fa;
+            padding: 4rem 0;
+            position: relative;
         }
         
         .stat-item {
             text-align: center;
-            margin: 1rem;
+            padding: 1.5rem;
         }
         
         .stat-number {
-            font-size: 2.5rem;
-            color: #e74c3c;
-            font-weight: bold;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--blood-red);
+            margin-bottom: 0.5rem;
+            line-height: 1;
         }
         
-        @media (max-width: 768px) {
-            .hero-content h1 {
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        /* Quote Section */
+        .quote-section {
+            padding: 4rem 0;
+        }
+        
+        .quote-card {
+            background-color: #fff3f3;
+            border-left: 5px solid var(--blood-red);
+            padding: 3rem;
+            margin: 0 auto;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(220, 20, 60, 0.05);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+        
+        .quote-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+        
+        .quote-footer {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+        
+        .nepal-flag-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .nepal-flag {
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .nepali-stats {
+            font-family: 'Mangal', 'Preeti', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+        
+        /* Donation Camps Section */
+        .camps-section {
+            padding: 5rem 0;
+            background-color: var(--light-bg);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--nepal-red);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--nepal-red), var(--nepal-blue));
+        }
+        
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .camps-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .camps-table {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .map-container {
+            flex: 1;
+            min-width: 300px;
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .table {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .table thead {
+            background-color: var(--nepal-red);
+            color: white;
+        }
+        
+        .table th {
+            padding: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+        
+        .table tr:nth-child(even) {
+            background-color: rgba(220, 20, 60, 0.03);
+        }
+        
+        .camp-badge {
+            background-color: var(--blood-red);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .location-link {
+            color: var(--nepal-blue);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .location-link:hover {
+            color: var(--nepal-red);
+            text-decoration: underline;
+        }
+        
+        .register-btn {
+            background-color: var(--blood-red);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .register-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Centers Section */
+        .centers-section {
+            padding: 5rem 0;
+            background: linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%);
+        }
+        
+        .center-map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            height: 450px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .center-map-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            filter: grayscale(10%) contrast(110%);
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.03) 0%, rgba(0, 56, 147, 0.03) 100%);
+            pointer-events: none;
+        }
+        
+        .location-info {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            border-top: 4px solid var(--nepal-red);
+        }
+        
+        .location-title {
+            font-size: 1.8rem;
+            color: var(--nepal-red);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .location-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--nepal-blue);
+        }
+        
+        .address-item {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .address-icon {
+            color: var(--nepal-red);
+            font-size: 1.2rem;
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+        
+        .address-text {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .transport-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .transport-item {
+            background-color: white;
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .transport-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .transport-icon {
+            color: var(--nepal-blue);
+            font-size: 1.2rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .btn-donor, .btn-request {
+                padding: 10px 20px;
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            
+            .nepali-saying {
+                font-size: 1.2rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .quote-card {
+                padding: 2rem;
+            }
+            
+            .quote-text {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
                 font-size: 2rem;
             }
         }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .nepali-saying {
+                font-size: 1rem;
+                margin-top: 2rem;
+            }
+            
+            .stat-item {
+                padding: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .stat-label {
+                font-size: 1rem;
+            }
+            
+            .quote-card {
+                padding: 1.5rem;
+                margin: 2rem auto;
+            }
+            
+            .location-info {
+                padding: 1.5rem;
+            }
+            
+            .location-title {
+                font-size: 1.5rem;
+            }
+            
+            .transport-item {
+                padding: 0.6rem 1.2rem;
+            }
+            
+            .map-container, .center-map-container {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .btn-donor, .btn-request {
+                display: block;
+                width: 80%;
+                margin: 0 auto 15px;
+            }
+            
+            .btn-donor {
+                margin-bottom: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            
+            .map-container, .center-map-container {
+                height: 350px;
+            }
+        }
     </style>
-    
-    <!-- Include Nepali font if needed -->
-    <link href="https://fonts.googleapis.com/css2?family=Mangal&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -83,80 +580,319 @@
   
   <!-- Hero Section -->
   <section class="hero-section">
-      <div class="hero-content">
-          <h1 class="display-3">रक्तदान जीवनदान</h1>
-          <p class="lead">Join Nepal's largest blood donation network and save lives across the Himalayas</p>
-          
-          <!-- Call to Action Buttons -->
-          <div class="mt-4">
-              <a href="/donor/signup" class="btn btn-danger btn-lg mr-3">Become a Donor</a>
-              <a href="/patient/request" class="btn btn-outline-light btn-lg">Request Blood</a>
-          </div>
-          
-          <!-- Nepali Saying -->
-          <div class="mt-5">
-              <p class="nepali-text">"एउटा रक्तदानले तीन जीवन बचाउन सक्छ"</p>
+      <div class="container">
+          <div class="hero-content">
+              <h1 class="hero-title">रक्तदान जीवनदान</h1>
+              <p class="hero-subtitle">Join Nepal's largest blood donation network and save lives across the Himalayas</p>
+              
+              <div class="d-flex flex-wrap justify-content-center">
+                  <a href="#donation-camps" class="btn btn-donor btn-lg">
+                      <i class="fas fa-heartbeat me-2"></i> Find Donation Camps
+                  </a>
+                  <a href="/patient/patientlogin" class="btn btn-outline-light btn-request btn-lg">
+                      <i class="fas fa-tint me-2"></i> Request Blood
+                  </a>
+              </div>
+              
+              <p class="nepali-saying">"एउटा रक्तदानले तीन जीवन बचाउन सक्छ"</p>
           </div>
       </div>
   </section>
 
   <!-- Impact Stats -->
-  <div class="stats-container">
-      <div class="stat-item">
-          <div class="stat-number">10,000+</div>
-          <div class="stat-label">Lives Saved</div>
+  <section class="stats-section">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4" data-aos="fade-up">
+                  <div class="stat-item">
+                      <div class="stat-number" data-count="10000">0+</div>
+                      <div class="stat-label">Lives Saved</div>
+                  </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                  <div class="stat-item">
+                      <div class="stat-number" data-count="5000">0+</div>
+                      <div class="stat-label">Active Donors</div>
+                  </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                  <div class="stat-item">
+                      <div class="stat-number" data-count="75">0+</div>
+                      <div class="stat-label">Cities Covered</div>
+                  </div>
+              </div>
+          </div>
       </div>
-      <div class="stat-item">
-          <div class="stat-number">5,000+</div>
-          <div class="stat-label">Active Donors</div>
-      </div>
-      <div class="stat-item">
-          <div class="stat-number">75+</div>
-          <div class="stat-label">Cities Covered</div>
-      </div>
-  </div>
+  </section>
 
   <!-- Quote Section -->
-  <div class="quote-card">
-      <blockquote class="blockquote text-center">
-          <p class="mb-0">"Every blood donor is a hero. In Nepal, where blood shortages are common in remote areas, your single donation can mean the difference between life and death for mothers in childbirth, accident victims, and patients battling illnesses."</p>
-          <footer class="blockquote-footer mt-2">Dr. Anjali Shrestha, <cite>Tribhuvan University Teaching Hospital</cite></footer>
-      </blockquote>
-      
-      <div class="text-center mt-3">
-          <img src="{% static 'image/nepal-flag.png' %}" alt="Nepal Flag" style="height: 40px; margin-right: 10px;">
-          <span class="nepali-text">नेपालमा हरेक वर्ष ३५०,००० युनिट रक्त आवश्यक पर्छ</span>
+  <section class="quote-section">
+      <div class="container">
+          <div class="quote-card" data-aos="zoom-in">
+              <p class="quote-text">"Every blood donor is a hero. In Nepal, where blood shortages are common in remote areas, your single donation can mean the difference between life and death for mothers in childbirth, accident victims, and patients battling illnesses."</p>
+              <p class="quote-footer">Dr. Anjali Shrestha, <cite>Tribhuvan University Teaching Hospital</cite></p>
+              
+              <div class="nepal-flag-container">
+                  <img src="{% static 'image/nepal-flag.png' %}" alt="Nepal Flag" class="nepal-flag">
+                  <p class="nepali-stats">नेपालमा हरेक वर्ष ३५०,००० युनिट रक्त आवश्यक पर्छ</p>
+              </div>
+          </div>
       </div>
-  </div>
+  </section>
+
+  <!-- Donation Camps Section -->
+  <section id="donation-camps" class="camps-section">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">Upcoming Blood Donation Camps</h2>
+              <p class="section-subtitle">Find the nearest blood donation camp in Kathmandu valley. Join us in saving lives!</p>
+          </div>
+          
+          <div class="camps-container">
+              <div class="camps-table" data-aos="fade-right">
+                  <div class="table-responsive">
+                      <table class="table table-hover">
+                          <thead>
+                              <tr>
+                                  <th>Date</th>
+                                  <th>Location</th>
+                                  <th>Time</th>
+                                  <th>Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>
+                                      <strong>June 15, 2023</strong><br>
+                                      <span class="camp-badge">New Camp</span>
+                                  </td>
+                                  <td>
+                                      <strong>Kathmandu Medical College</strong><br>
+                                      <a href="https://goo.gl/maps/abc123" class="location-link" target="_blank">
+                                          <i class="fas fa-map-marker-alt"></i> Sinamangal, Kathmandu
+                                      </a>
+                                  </td>
+                                  <td>9:00 AM - 4:00 PM</td>
+                                  <td>
+                                      <button class="register-btn">
+                                          <i class="fas fa-edit"></i> Register
+                                      </button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <strong>June 18, 2023</strong><br>
+                                      <span class="camp-badge">Regular</span>
+                                  </td>
+                                  <td>
+                                      <strong>Tribhuvan University</strong><br>
+                                      <a href="https://goo.gl/maps/xyz456" class="location-link" target="_blank">
+                                          <i class="fas fa-map-marker-alt"></i> Kirtipur, Kathmandu
+                                      </a>
+                                  </td>
+                                  <td>8:00 AM - 3:00 PM</td>
+                                  <td>
+                                      <button class="register-btn">
+                                          <i class="fas fa-edit"></i> Register
+                                      </button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <strong>June 22, 2023</strong><br>
+                                      <span class="camp-badge">Mega Camp</span>
+                                  </td>
+                                  <td>
+                                      <strong>Bhrikuti Mandap Exhibition</strong><br>
+                                      <a href="https://goo.gl/maps/def789" class="location-link" target="_blank">
+                                          <i class="fas fa-map-marker-alt"></i> Kathmandu
+                                      </a>
+                                  </td>
+                                  <td>8:00 AM - 5:00 PM</td>
+                                  <td>
+                                      <button class="register-btn">
+                                          <i class="fas fa-edit"></i> Register
+                                      </button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <strong>June 25, 2023</strong><br>
+                                      <span class="camp-badge">Regular</span>
+                                  </td>
+                                  <td>
+                                      <strong>Nepal Red Cross Society</strong><br>
+                                      <a href="https://goo.gl/maps/ghi012" class="location-link" target="_blank">
+                                          <i class="fas fa-map-marker-alt"></i> Tahachal, Kathmandu
+                                      </a>
+                                  </td>
+                                  <td>10:00 AM - 4:00 PM</td>
+                                  <td>
+                                      <button class="register-btn">
+                                          <i class="fas fa-edit"></i> Register
+                                      </button>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <strong>June 30, 2023</strong><br>
+                                      <span class="camp-badge">Special Camp</span>
+                                  </td>
+                                  <td>
+                                      <strong>Patan Hospital</strong><br>
+                                      <a href="https://goo.gl/maps/jkl345" class="location-link" target="_blank">
+                                          <i class="fas fa-map-marker-alt"></i> Lagankhel, Lalitpur
+                                      </a>
+                                  </td>
+                                  <td>9:00 AM - 3:00 PM</td>
+                                  <td>
+                                      <button class="register-btn">
+                                          <i class="fas fa-edit"></i> Register
+                                      </button>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+              
+              <div class="map-container" data-aos="fade-left">
+                  <iframe 
+                      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3532.456205029907!2d85.32014931506205!3d27.703544382793992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sblood%20donation%20camps%20in%20kathmandu!5e0!3m2!1sen!2snp!4v1620000000000!5m2!1sen!2snp" 
+                      class="map-iframe"
+                      allowfullscreen="" 
+                      loading="lazy"
+                      aria-label="Map of blood donation camps in Kathmandu">
+                  </iframe>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Centers Section -->
+  <section class="centers-section">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">Our Blood Donation Centers</h2>
+              <p class="section-subtitle">Find our permanent donation centers across Nepal. We're here to serve you year-round.</p>
+          </div>
+          
+          <div class="row">
+              <div class="col-lg-8" data-aos="fade-right">
+                  <div class="center-map-container">
+                      <iframe 
+                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.456205029907!2d85.32014931506205!3d27.703544382793992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19a64b5f13e1%3A0x28b2d0eacda46b98!2sKathmandu%2044600!5e0!3m2!1sen!2snp!4v1620000000000!5m2!1sen!2snp" 
+                          class="center-map-iframe"
+                          allowfullscreen="" 
+                          loading="lazy"
+                          aria-label="Map of permanent blood donation centers in Kathmandu">
+                      </iframe>
+                      <div class="map-overlay"></div>
+                  </div>
+              </div>
+              
+              <div class="col-lg-4" data-aos="fade-left">
+                  <div class="location-info">
+                      <h3 class="location-title">Kathmandu Center</h3>
+                      
+                      <div class="address-item">
+                          <i class="fas fa-map-marker-alt address-icon"></i>
+                          <p class="address-text">Durbar Marg, Kathmandu 44600<br>Near Garden of Dreams</p>
+                      </div>
+                      
+                      <div class="address-item">
+                          <i class="fas fa-clock address-icon"></i>
+                          <p class="address-text">Open daily: 8:00 AM - 6:00 PM<br>(Closed on public holidays)</p>
+                      </div>
+                      
+                      <div class="address-item">
+                          <i class="fas fa-phone-alt address-icon"></i>
+                          <p class="address-text">+977-1-4223344<br>+977-9801234567 (Emergency)</p>
+                      </div>
+                      
+                      <div class="address-item">
+                          <i class="fas fa-envelope address-icon"></i>
+                          <p class="address-text">kathmandu@raktadan.org.np</p>
+                      </div>
+                      
+                      <div class="transport-options">
+                          <div class="transport-item">
+                              <i class="fas fa-taxi transport-icon"></i>
+                              <span class="transport-text">Taxi</span>
+                          </div>
+                          <div class="transport-item">
+                              <i class="fas fa-bus transport-icon"></i>
+                              <span class="transport-text">Bus 25/27</span>
+                          </div>
+                          <div class="transport-item">
+                              <i class="fas fa-walking transport-icon"></i>
+                              <span class="transport-text">10 min walk</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
 
   {% include "blood/footer.html" %}
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
   <script>
+      // Initialize AOS animation
+      AOS.init({
+          duration: 800,
+          easing: 'ease-in-out',
+            once: true
+      });
+      
       // Animation for stats counting
       document.addEventListener('DOMContentLoaded', function() {
           const statNumbers = document.querySelectorAll('.stat-number');
           
-          statNumbers.forEach(number => {
-              const target = parseInt(number.textContent.replace(/[^0-9]/g, ''));
-              const increment = target / 100;
-              let current = 0;
-              
-              const timer = setInterval(() => {
-                  current += increment;
-                  if (current >= target) {
-                      clearInterval(timer);
-                      current = target;
+          const options = {
+              threshold: 0.5
+          };
+          
+          const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      const target = parseInt(entry.target.getAttribute('data-count'));
+                      const increment = target / 100;
+                      let current = 0;
+                      
+                      const timer = setInterval(() => {
+                          current += increment;
+                          if (current >= target) {
+                              clearInterval(timer);
+                              current = target;
+                          }
+                          entry.target.textContent = Math.floor(current).toLocaleString() + '+';
+                      }, 10);
+                      
+                      observer.unobserve(entry.target);
                   }
-                  number.textContent = Math.floor(current).toLocaleString() + (number.textContent.includes('+') ? '+' : '');
-              }, 10);
+              });
+          }, options);
+          
+          statNumbers.forEach(number => {
+              observer.observe(number);
+          });
+          
+          // Register button functionality
+          document.querySelectorAll('.register-btn').forEach(button => {
+              button.addEventListener('click', function() {
+                  const row = this.closest('tr');
+                  const location = row.querySelector('td:nth-child(2) strong').textContent;
+                  const date = row.querySelector('td:first-child strong').textContent;
+                  
+                  alert(`Thank you for your interest in donating blood at ${location} on ${date}. Our team will contact you shortly with details.`);
+              });
           });
       });
   </script>
 </body>
-
 </html>
-<!--
-Developed with ❤️ by Kings Student for Nepal
-Contact: RaktaSewa@Kings.org
--->
